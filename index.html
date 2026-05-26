@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spencer View Farm — Lavender | Eugene, Oregon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lavender: #8B6BAE;
+      --lavender-light: #b89fd4;
+      --lavender-pale: #f3eef9;
+      --cream: #faf8f4;
+      --charcoal: #2c2c2c;
+      --mid: #5a5a5a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      background: rgba(139, 107, 174, 0.95);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 3rem;
+      background: var(--lavender);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-logo {
+      width: min(220px, 55vw);
+      height: auto;
+      margin-bottom: 2rem;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-wordmark {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 14vw, 5rem);
+      font-weight: 900;
+      color: white;
+      letter-spacing: 0.06em;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 1s ease 0.1s both;
+      text-align: center;
+    }
+
+    .hero-sub {
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem;
+      animation: fadeUp 1s ease 0.15s both;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.04em;
+      font-weight: 400;
+      max-width: 420px;
+      animation: fadeUp 1s ease 0.2s both;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: pulse 2s ease infinite;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: var(--mid);
+      max-width: 600px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--lavender-light), transparent);
+      border: none;
+      margin: 0;
+    }
+
+    /* ── VARIETIES ── */
+    .varieties {
+      background: var(--lavender-pale);
+    }
+
+    .varieties section {
+      padding: 5rem 1.5rem;
+    }
+
+    .variety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .variety-card {
+      background: white;
+      border-radius: 4px;
+      padding: 2rem;
+      border-left: 4px solid var(--lavender);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .variety-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(139,107,174,0.15);
+    }
+
+    .variety-type {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .variety-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 0.75rem;
+    }
+
+    .variety-desc {
+      font-size: 0.95rem;
+      color: var(--mid);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .variety-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--lavender-light);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .variety-link:hover {
+      color: #6a4d8a;
+      border-color: #6a4d8a;
+    }
+
+    /* ── WHOLESALE ── */
+    .wholesale-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) {
+      .wholesale-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .wholesale-inner p { max-width: 100%; }
+
+    .buyer-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .buyer-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #e8e0f0;
+      font-size: 0.95rem;
+      color: var(--mid);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .buyer-list li::before {
+      content: '·';
+      color: var(--lavender);
+      font-size: 1.4rem;
+      line-height: 0;
+      margin-top: 2px;
+    }
+
+    .contact-block {
+      background: var(--lavender);
+      border-radius: 4px;
+      padding: 2.5rem;
+      color: white;
+    }
+
+    .contact-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .contact-block p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      max-width: 100%;
+    }
+
+    .contact-email {
+      display: inline-block;
+      background: white;
+      color: var(--lavender);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .contact-email:hover {
+      background: var(--lavender-pale);
+    }
+
+    /* ── FARM EVENT ── */
+    .event-banner {
+      background: var(--charcoal);
+      color: white;
+      text-align: center;
+    }
+
+    .event-banner section {
+      padding: 4rem 1.5rem;
+    }
+
+    .event-banner .section-label {
+      color: var(--lavender-light);
+    }
+
+    .event-banner h2 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .event-banner p {
+      color: rgba(255,255,255,0.7);
+      margin: 0 auto 1.75rem;
+    }
+
+    .notify-btn {
+      display: inline-block;
+      border: 1px solid var(--lavender-light);
+      color: var(--lavender-light);
+      padding: 0.75rem 2rem;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .notify-btn:hover {
+      background: var(--lavender);
+      border-color: var(--lavender);
+      color: white;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--lavender);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    footer strong {
+      display: block;
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <img class="nav-logo" src="4FCCE973-0C2E-4514-BC1E-747FFE58A9AE.png" alt="Spencer View Farm Logo"
+      onerror="this.style.display='none'"/>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-logo" src="4FCCE973-0C2E-4514-BC1E-747FFE58A9AE.png" alt="Spencer View Farm Logo"/>
+    <p class="hero-wordmark">SPENCER<br>VIEW<br>FARM</p>
+    <p class="hero-sub">Lavender · Eugene, Oregon</p>
+    <p class="hero-tagline">Small-batch lavender grown on the sunny side of Spencer Butte, Eugene, Oregon.</p>
+    <span class="hero-scroll">↓ Scroll</span>
+  </div>
+
+  <!-- OUR FARM -->
+  <section>
+    <p class="section-label">Our Farm</p>
+    <h2>Rooted in the Willamette Valley</h2>
+    <p>Spencer View Farm is a family-owned lavender farm nestled on the sunny side of Spencer Butte in Eugene, Oregon — where the view frames every season. We grow two exceptional varieties selected for the Pacific Northwest climate, harvested and prepared for local shops, cafés, and kitchens that value where their ingredients come from.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- VARIETIES -->
+  <div class="varieties">
+    <section>
+      <p class="section-label">What We Grow</p>
+      <h2>Two Varieties, One Purpose</h2>
+      <p>We source our plants from Van Hevelingen Herb Nursery in Newberg, Oregon — the most diverse lavender collection in the United States.</p>
+
+      <div class="variety-grid">
+
+        <div class="variety-card">
+          <p class="variety-type">English Lavender — Lavandula angustifolia</p>
+          <h3 class="variety-name">Pacific Blue</h3>
+          <p class="variety-desc">A rounded, spreading shrub with sweetly fragrant dark violet flower spikes. Our English variety — prized for culinary use, dried bundles, and sachets.</p>
+          <a class="variety-link" href="https://www.vhherbs.com/plant-selection/by-genus/genus-lavandula/lavandula-angustifolia-pacific-blue" target="_blank" rel="noopener">
+            View at Van Hevelingen →
+          </a>
+        </div>
+
+        <div class="variety-card">
+          <p class="variety-type">French Lavandin — Lavandula × intermedia</p>
+          <h3 class="variety-name">Riverina Thomas</h3>
+          <p class="variety-desc">A highly fragrant lavandin variety with robust, tall stems and exceptional essential oil yield. Our French variety — ideal for bundles, sachets, and aromatic products.</p>
+          <a class="variety-link" href="https://www.vhherbs.com/plant-selection/by-genus/genus-lavandula/lavandula-intermedia-riverina-thomas" target="_blank" rel="noopener">
+            View at Van Hevelingen →
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHOLESALE -->
+  <section>
+    <div class="wholesale-inner">
+      <div>
+        <p class="section-label">For Local Shops & Cafés</p>
+        <h2>Wholesale Inquiry</h2>
+        <p>We partner with independent shops and food businesses in the Eugene–Springfield area. Seasonal availability of dried bundles, culinary lavender, and aromatic products.</p>
+        <ul class="buyer-list">
+          <li>Dried lavender bundles</li>
+          <li>Culinary lavender (buds)</li>
+          <li>Sachets & aromatic products</li>
+          <li>Seasonal availability — harvested fresh</li>
+          <li>Local delivery, Lane County</li>
+        </ul>
+      </div>
+      <div class="contact-block">
+        <h3>Get in Touch</h3>
+        <p>Interested in carrying Spencer View Farm lavender in your shop or using it in your kitchen? We'd love to talk.</p>
+        <a class="contact-email" href="mailto:hello@spencerview.farm">hello@spencerview.farm</a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <strong>Spencer View Farm</strong>
+    Lavender · Eugene, Oregon · <a href="mailto:hello@spencerview.farm" style="color:rgba(255,255,255,0.75);">hello@spencerview.farm</a>
+    <br><br>
+    <p style="font-size:0.75rem; opacity:0.6; max-width:600px; margin: 0 auto 1rem; line-height:1.6;">Spencer View Farm lavender is grown for culinary and aromatic use. Consult your healthcare provider before using any botanical product for therapeutic purposes. Spencer View Farm, LLC assumes no responsibility for adverse effects resulting from the use or consumption of our products.</p>
+    <span style="font-size:0.75rem; opacity:0.5;">© 2026 Spencer View Farm, LLC · All rights reserved</span>
+  </footer>
+
+</body>
+</html>
